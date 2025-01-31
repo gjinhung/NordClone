@@ -1,37 +1,38 @@
-from app.models import db, User
+from app.models import db, Password
 import datetime
 
 
 # Adds a demo user, you can add other users here if you want
-def seed_users():
-    demo = User(
-        username="Demo",
-        email="demo@aa.io",
+def seed_passwords():
+    yelp = Password(
+        website="www.yelp.com",
+        emailUser="demo@aa.io",
         password="password",
-        passwords=[],
+        name="Yelp",
+        user_id=1,
         created_at=datetime.datetime.now(),
         updated_at=datetime.datetime.now(),
     )
-    marnie = User(
-        username="marnie",
-        email="marnie@aa.io",
+    facebook = Password(
+        website="www.facebook.com",
+        emailUser="demo@aa.io",
         password="password",
-        passwords=[],
+        user_id=1,
         created_at=datetime.datetime.now(),
         updated_at=datetime.datetime.now(),
     )
-    bobbie = User(
-        username="bobbie",
-        email="bobbie@aa.io",
-        password="password",
-        passwords=[],
+    checking = Password(
+        website="www.checking.com",
+        emailUser="checking",
+        password="Password",
+        user_id=1,
         created_at=datetime.datetime.now(),
         updated_at=datetime.datetime.now(),
     )
 
-    db.session.add(demo)
-    db.session.add(marnie)
-    db.session.add(bobbie)
+    db.session.add(yelp)
+    db.session.add(facebook)
+    db.session.add(checking)
 
     db.session.commit()
 
@@ -41,6 +42,6 @@ def seed_users():
 # TRUNCATE Removes all the data from the table, and RESET IDENTITY
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
-def undo_users():
+def undo_passwords():
     db.session.execute("TRUNCATE users RESTART IDENTITY CASCADE;")
     db.session.commit()

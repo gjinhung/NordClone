@@ -10,10 +10,9 @@ class Password(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     website = db.Column(db.String(255), nullable=True, unique=False)
     emailUser = db.Column(db.String(255), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("tours.id")))
+    user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     password = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(255), nullable=True, unique=False)
-
     created_at = db.Column(db.DateTime(), nullable=False)
     updated_at = db.Column(db.DateTime(), nullable=False)
 
