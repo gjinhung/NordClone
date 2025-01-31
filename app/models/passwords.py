@@ -13,6 +13,7 @@ class Password(db.Model):
     emailUser = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("tours.id")))
     password = db.Column(db.String(255), nullable=False)
+
     created_at = db.Column(db.DateTime(), nullable=False)
     updated_at = db.Column(db.DateTime(), nullable=False)
 
@@ -22,7 +23,6 @@ class Password(db.Model):
         return {
             "id": self.id,
             "reviewer_id": self.reviewer_id,
-            # "tour_id": self.tour_id,
             "guide_id": self.guide_id,
             "communication_rating": self.communication_rating,
             "knowledgeability_rating": self.knowledgeability_rating,
