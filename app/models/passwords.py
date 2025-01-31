@@ -1,5 +1,4 @@
 from .db import db, environment, SCHEMA, add_prefix_for_prod
-from werkzeug.security import generate_password_hash, check_password_hash
 
 
 class Password(db.Model):
@@ -13,6 +12,7 @@ class Password(db.Model):
     emailUser = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("tours.id")))
     password = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(255), nullable=True, unique=False)
 
     created_at = db.Column(db.DateTime(), nullable=False)
     updated_at = db.Column(db.DateTime(), nullable=False)
@@ -22,27 +22,11 @@ class Password(db.Model):
     def to_dict(self):
         return {
             "id": self.id,
-            "reviewer_id": self.reviewer_id,
-            "guide_id": self.guide_id,
-            "communication_rating": self.communication_rating,
-            "knowledgeability_rating": self.knowledgeability_rating,
-            "professionalism_rating": self.professionalism_rating,
-            "rating": self.rating,
-            "review_body": self.review_body,
+            "website": self.website,
+            "emailUser": self.emailUser,
+            "user_id": self.user_id,
+            "password": self.password,
+            "name": self.name,
             "created_at": self.created_at,
             "updated_at": self.updated_at,
         }
-
-    @property
-    def password(self):
-        return self.hashed_password
-
-    @password.setter
-    def password(self, password):
-        self.hashed_password = generate_password_hash(password)
-
-    def check_password(self, password):
-        return check_password_hash(self.password, password)
-
-    def to_dict(self):
-        return {"id": self.id, "username": self.username, "email": self.email}
