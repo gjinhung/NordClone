@@ -7,8 +7,8 @@ password_routes = Blueprint("passwords", __name__)
 
 @password_routes.route("/")
 @login_required
-def passwords():
-    passwords = Password.query.all()
+def user_passwords(user_id):
+    passwords = Password.query.filter_by(user_id=user_id).all()
     return {"passwords": [password.to_dict() for password in passwords]}
 
 
