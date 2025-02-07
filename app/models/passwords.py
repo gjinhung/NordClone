@@ -9,7 +9,8 @@ class Password(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     website = db.Column(db.String(255), nullable=True, unique=False)
-    emailUser = db.Column(db.String(255), nullable=False)
+    email = db.Column(db.String(255), nullable=True)
+    username = db.Column(db.String(255), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey(add_prefix_for_prod("users.id")))
     password = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(255), nullable=True, unique=False)
@@ -22,7 +23,8 @@ class Password(db.Model):
         return {
             "id": self.id,
             "website": self.website,
-            "emailUser": self.emailUser,
+            "email": self.email,
+            "username": self.username,
             "user_id": self.user_id,
             "password": self.password,
             "name": self.name,

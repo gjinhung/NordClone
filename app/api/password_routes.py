@@ -35,7 +35,8 @@ def create_password(user_id):
     if form.validate():
         new_password = Password(
             website=form.website.data,
-            emailUser=form.emailUser.data,
+            email=form.email.data,
+            username=form.username.data,
             user_id=current_user.id,
             password=form.password.data,
             name=form.name.data,

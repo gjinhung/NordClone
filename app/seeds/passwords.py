@@ -1,12 +1,14 @@
-from app.models import db, Password
+from app.models import db, Password, SCHEMA, environment
 import datetime
+from sqlalchemy.sql import text
 
 
 # Adds a demo user, you can add other users here if you want
 def seed_passwords():
     yelp = Password(
         website="www.yelp.com",
-        emailUser="demo@aa.io",
+        email="demo@aa.io",
+        username="demo",
         password="password",
         name="Yelp",
         user_id=1,
@@ -15,7 +17,8 @@ def seed_passwords():
     )
     facebook = Password(
         website="www.facebook.com",
-        emailUser="demo@aa.io",
+        email="demo@aa.io",
+        username="demo",
         password="password",
         user_id=1,
         created_at=datetime.datetime.now(),
@@ -23,7 +26,7 @@ def seed_passwords():
     )
     checking = Password(
         website="www.checking.com",
-        emailUser="checking",
+        username="checking",
         password="Password",
         user_id=1,
         created_at=datetime.datetime.now(),
@@ -43,5 +46,10 @@ def seed_passwords():
 # resets the auto incrementing primary key, CASCADE deletes any
 # dependent entities
 def undo_passwords():
-    db.session.execute("TRUNCATE users RESTART IDENTITY CASCADE;")
+    if environment == "production":
+        db.session.execute(
+            f"TRUNCATE table {SCHEMA}.passwords RESTART IDENTITY CASCADE;"
+        )
+    else:
+        db.session.execute(text("DELETE FROM businesses"))
     db.session.commit()
