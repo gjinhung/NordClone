@@ -3,7 +3,7 @@ from wtforms import StringField, IntegerField, SubmitField
 from wtforms.validators import DataRequired, NumberRange, Length
 
 
-class ReviewForm(FlaskForm):
+class PasswordForm(FlaskForm):
     website = StringField("website", validators=[Length(max=500)])
     emailUser = StringField("emailUser", validators=[DataRequired(), Length(max=500)])
     password = StringField("password", validators=[DataRequired(), Length(max=500)])
